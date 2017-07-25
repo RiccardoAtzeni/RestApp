@@ -7,7 +7,7 @@ import org.springframework.validation.Validator;
 
 import com.arm.springrest.data.FileBucket;
 
-@Service("multifileValidator")
+@Component
 public class FileValidator implements Validator
 {
  

@@ -34,21 +34,20 @@ public class FileUploadController
 {
 	private static String UPLOAD_LOCATION="C:/Users/Public/springmvc_upload/";
 	
-	/*
-	@Autowired
-	@Qualifier("fileValidator")
-	private Validator validator;
 	
-	/@InitBinder identifies WebDataBinder method in the controller
+	@Autowired
+	private FileValidator filevalidator;
+	
+	//@InitBinder identifies WebDataBinder method in the controller
 	@InitBinder("fileBucket")
 	protected void initBinderFileBucket(WebDataBinder binder){
-		binder.setValidator(validator);
-	}*/
+		binder.setValidator(filevalidator);
+	}
 	
 	@Autowired
 	private MultiFileValidator multiFileValidator;
 	
-	@InitBinder
+	@InitBinder("multiFileBucket")
 	protected void initBinderMultiFileBucket(WebDataBinder binder){
 		binder.setValidator(multiFileValidator);
 	}
