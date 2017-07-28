@@ -4,9 +4,11 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -29,8 +31,8 @@ public class WebConfig extends WebMvcConfigurerAdapter
 	@Bean
 	public MessageSource messageSource()
 	{	//file properties under resources folder 
-		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		messageSource.setBasename("messages");
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("file:/Users/Riccardo/Documents/Restapp_config/messages");
 		return messageSource;
 	}
 	
@@ -41,8 +43,19 @@ public class WebConfig extends WebMvcConfigurerAdapter
 		viewResolver.setViewClass(JstlView.class);
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
+		
+		//true: make all Spring beans in the app context accessible as request attribute
+		//viewResolver.setExposeContextBeansAsAttributes(true);
 		registry.viewResolver(viewResolver);
 	}
+	
+	    //to serve static resources
+		@Override
+		public void configureDefaultServletHandling(
+				DefaultServletHandlerConfigurer configurer) 
+		{
+			configurer.enable();
+		}
 	
 	public void addResourceHandlers(ResourceHandlerRegistry registry)
 	{
