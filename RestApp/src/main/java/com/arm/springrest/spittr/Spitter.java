@@ -25,6 +25,7 @@ public class Spitter
 	private String lastName;
 	
 	@NotNull
+	@Size(min=2, max=30, message="{email.valid}")
 	@Email(message="{email.valid}")
 	private String email;
 	

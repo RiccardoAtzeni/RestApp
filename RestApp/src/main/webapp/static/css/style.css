@@ -1,22 +1,14 @@
 @CHARSET "ISO-8859-1";
 
-span.error
-{
-	color: red;
-}
+span.error{
+	color: red;}
 
-div.errors
-{
+div.errors{
 	background-color: #ffcccc;
-	border: 2px solid red;
-}
+	border: 2px solid red;}
 
-label.error
-{
-	color: red;
-}
+label.error{
+	color: red;}
 
-input.error
-{
-	background-color: #ffcccc;
-}
+input.error{
+	background-color: #ffcccc;}

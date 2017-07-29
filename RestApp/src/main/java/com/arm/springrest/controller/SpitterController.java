@@ -1,5 +1,8 @@
 package com.arm.springrest.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.arm.springrest.data.SpitterRepository;
 import com.arm.springrest.spittr.Spitter;
@@ -36,30 +40,40 @@ public class SpitterController
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String processRegistration(@RequestPart("profilePicture") MultipartFile profilePicture,
-			@Valid Spitter spitter, Errors errors)
+			@Valid Spitter spitter, Errors errors, RedirectAttributes model) throws IllegalStateException
 	{ 
-		if(errors.hasErrors()) return "registerForm";
+		try
+		{
+			if(errors.hasErrors()) return "registerForm";
+			
+			//saveImage(profilePicture);
+			spitterRepository.save(spitter);        
+			if(profilePicture!=null && !profilePicture.getOriginalFilename().isEmpty())
+				profilePicture.transferTo(new File("C:/Users/Public/springmvc_upload/"+profilePicture.getOriginalFilename()));
+			
+			model.addAttribute("username",spitter.getUsername());
+			model.addFlashAttribute("spitter",spitter);
+			
+		}catch(IOException e){
+			//there's no need to handle this specific IOException
+			if(!e.getMessage().toLowerCase().contains("Failed to perform cleanup of multipart items"))
+				e.printStackTrace();
+		}
 		
-		//saveImage(profilePicture);
-		spitterRepository.save(spitter);
-		return "redirect:/spitter/" + spitter.getUsername();
+		return "redirect:/spitter/{username}";
 	}
 	
 	@RequestMapping(value="/{username}", method=RequestMethod.GET)
 	public String showSpitterProfile(
 			@PathVariable String username, Model model)
 	{
-		String view = null;
-		Spitter spitter = spitterRepository.findByUsername(username);
-		
-		if(spitter==null) return "redirect: /homepage";
-		else 
-		{
-			model.addAttribute(spitter);
+		if( (model.containsAttribute("spitter")) && (spitterRepository.findByUsername(username)!=null) )
 			return "profile";
-		}
-
+		else
+			return "redirect:/welcome";
+		
 	}
+	
 	
 	/*
 	private void saveImage(MultipartFile image) //throws ImageUploadException

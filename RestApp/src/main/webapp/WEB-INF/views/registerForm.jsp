@@ -9,40 +9,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Register to Spittr</title>	
-   <link href="<c:url value='/static/style.css' />" rel="stylesheet"></link>
+   <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
+	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+	<link href="<c:url value='/static/style.css' />" rel="stylesheet"></link>
 		  
 </head>
 
 <body>
-	<h1>Register</h1>
-	<!-- 
-	<form method="POST">
-		First name: <input type="text" name="firstName" /><br/>
-		Last name: <input type="text" name="lastName" /><br/>
-		Username: <input type="text" name="username" /><br/>
-		Password: <input type="password" name="password" /><br/>
-			<input type="submit" value="Register" />
-	</form> -->
+    <div class="form-container">
+	<h1>Sign in</h1>
 	
 	<sf:form method="POST" commandName="spitter" enctype="multipart/form-data">	
-		<sf:errors path="*" element="div" cssClass="errors" />
+		<sf:errors path="*" element="div" cssClass="errors" /><br/>
 		
 		<sf:label path="firstName" cssErrorClass="error">First name</sf:label>:
 		<sf:input path="firstName" cssErrorClass="error" /><br/>
 		<sf:label path="lastName" cssErrorClass="error">Last name</sf:label>:
 		<sf:input path="lastName" cssErrorClass="error" /><br/>
-		<sf:label path="email" cssErrorClass="error">Email</sf:label>:
-		<sf:input path="email" type="email" cssErrorClass="error" /><br/>
+		<sf:label path="email" cssErrorClass="error">Your Email</sf:label>:
+		<sf:input path="email" cssErrorClass="error" /><br/>
 		<sf:label path="username" cssErrorClass="error">Username</sf:label>:
 		<sf:input path="username" cssErrorClass="error" /><br/>
 		<sf:label path="password" cssErrorClass="error">Password</sf:label>:
 		<sf:input path="password" type="password" cssErrorClass="error" /><br/><br/>
 		
 		<label>Profile Picture</label>
-		<input name="profilePicture" type="file" accept="image/jpeg,image/png,image/gif"/><br/>
+		<input name="profilePicture" type="file" accept="image/jpeg,image/png,image/gif"/><br/><br/>
 		
 		<input type="submit" value="Register" />
 	</sf:form>	
+	</div>
 	
 </body>
 </html>

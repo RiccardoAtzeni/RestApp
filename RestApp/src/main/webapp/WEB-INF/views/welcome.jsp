@@ -20,19 +20,17 @@
 	<s:url value="/spittle" var="spittlesUrl">
 		<!--<s:param name="max" value="60" />-->
 		<s:param name="count" value="20" />
-	</s:url>
-	
+	</s:url>	
 	<h2>Find out last recent 
 	<a href="${spittlesUrl}">spittles</a>
-	</h2> 
+	</h2> <br/><br/>
+	
+	<h5>Store your files and photos in the Spittr repository <br/>	
+	<a href="<c:url value='/singleUpload' />">Single File Upload</a> or <a href="<c:url value='/multiUpload' />">Multi File Upload</a>
 	
 	<s:url value="/spitter/register" var="registerUrl" />
-	<a href="${registerUrl}">Register</a>	
+	<p class="member"> Not a member yet? <a href="${registerUrl}"> Register</a> now!</p> </h5>
+	</div>	
 	
-	Click on below links to upload a single file or multiple ones. <br/><br/>
-	
-	<a href="<c:url value='/singleUpload' />">Single File Upload</a> OR <a href="<c:url value='/multiUpload' />">Multi File Upload</a>
-	</div>
-
 </body>
 </html>

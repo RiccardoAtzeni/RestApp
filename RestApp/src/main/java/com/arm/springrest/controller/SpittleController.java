@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.arm.springrest.data.SpittleRepository;
+import com.arm.springrest.exception.ResourceNotFoundException;
+import com.arm.springrest.spittr.Spittle;
 
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -44,7 +46,11 @@ public class SpittleController
 	public String showSpittle(
 			@RequestParam("spittle_id") long spittleId, Model model)
 	{
-		model.addAttribute(spittleRepository.findOne(spittleId));
+		Spittle spittle = spittleRepository.findOne(spittleId);
+		spittle=null;
+		if (spittle==null)
+			throw new ResourceNotFoundException();
+		
 		return "spittle"; 
 	}
 	
@@ -52,7 +58,11 @@ public class SpittleController
 	public String spittle(
 			@PathVariable long spittleId, Model model)
 	{
-		model.addAttribute(spittleRepository.findOne(spittleId));
+		Spittle spittle = spittleRepository.findOne(spittleId);
+		if (spittle==null)
+			throw new ResourceNotFoundException();
+		
+		model.addAttribute(spittle);
 		return "spittle";
 	}	
 	
