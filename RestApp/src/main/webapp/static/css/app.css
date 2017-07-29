@@ -17,11 +17,11 @@ body, #mainWrapper, .form-control{
 
 .form-container {
   position:fiexd;
-  width:70%;
-  margin-left: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
+  width:90%;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
   background-color: #E8E1E1;
   border: 1px solid #ddd;
   border-radius: 4px;

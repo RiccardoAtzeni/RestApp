@@ -1,4 +1,4 @@
-package com.arm.springrest.core;
+package com.arm.springrest.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.arm.springrest.core.FileValidator;
+import com.arm.springrest.core.MultiFileValidator;
 import com.arm.springrest.data.FileBucket;
 import com.arm.springrest.data.MultiFileBucket;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -52,11 +54,11 @@ public class FileUploadController
 		binder.setValidator(multiFileValidator);
 	}
 	
-	@RequestMapping(value= {"/","/welcome"}, method=RequestMethod.GET)
+	/* @RequestMapping(value= {"/","/welcome"}, method=RequestMethod.GET)
 	public String getHomePage (ModelMap model)
 	{
 		return "welcome";
-	}
+	}*/
 	
 	@RequestMapping(value="/singleUpload", method=RequestMethod.GET)
 	public String getSingleUploadPage(ModelMap model)
