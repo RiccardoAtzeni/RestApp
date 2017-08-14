@@ -5,6 +5,7 @@ import com.arm.springrest.config.*;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 	//Routing the request through all other components: automatically used
@@ -24,13 +25,13 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 		
 		@Override
 		protected Class<?>[] getRootConfigClasses() {
-			return new Class<?>[] { RootConfig.class };
+			return new Class<?>[] { RootConfig.class, SecurityConfig.class };
 		}
 
 		//Specify configuration class
 		@Override
 		protected Class<?>[] getServletConfigClasses() {
-			return new Class<?>[] { WebConfig.class };
+			return new Class<?>[] { WebConfig.class};
 		}
 
 		//Map DispatcherServlet to / : it's the default servlet

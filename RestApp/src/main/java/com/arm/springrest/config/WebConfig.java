@@ -16,9 +16,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import javax.annotation.Resource;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages= "com.arm.springrest")
+@Resource(name="java:jboss/datasources/restAppDS", type=javax.sql.DataSource.class, lookup="java:jboss/datasources/restAppDS")
 //@EnableScheduling
 public class WebConfig extends WebMvcConfigurerAdapter
 {
