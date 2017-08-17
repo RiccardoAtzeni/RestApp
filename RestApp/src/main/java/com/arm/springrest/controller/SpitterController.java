@@ -2,9 +2,13 @@ package com.arm.springrest.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 import javax.validation.Valid;
 
+import com.arm.springrest.service.SpitterService;
+import com.arm.springrest.util.SpitterRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +27,9 @@ import com.arm.springrest.spittr.Spitter;
 @RequestMapping("/spitter")
 public class SpitterController 
 {
+	@Autowired
+	private SpitterService spitterService;
+
 	private SpitterRepository spitterRepository;
 	
 	@Autowired
@@ -45,7 +52,6 @@ public class SpitterController
 		try
 		{
 			if(errors.hasErrors()) return "registerForm";
-			
 			//saveImage(profilePicture);
 			spitterRepository.save(spitter);        
 			if(profilePicture!=null && !profilePicture.getOriginalFilename().isEmpty())
@@ -53,6 +59,21 @@ public class SpitterController
 			
 			model.addAttribute("username",spitter.getUsername());
 			model.addFlashAttribute("spitter",spitter);
+
+			com.arm.springrest.model.Spitter s = new com.arm.springrest.model.Spitter();
+			s.setUsername(spitter.getUsername());
+			s.setPassword(spitter.getPassword());
+			s.setEmail(spitter.getEmail());
+			s.setEnabled(true);
+			s.setFirstname(spitter.getFirstName());
+			s.setLastname(spitter.getLastName());
+			s.setInsert_date(Calendar.getInstance());
+			s.setLast_update(Calendar.getInstance());
+			s.setRole_user(SpitterRoleEnum.USER);
+
+			spitterService.createSpitter(s);
+
+
 			
 		}catch(IOException e){
 			//there's no need to handle this specific IOException

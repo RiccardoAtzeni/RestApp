@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -16,17 +17,28 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
-    @Qualifier("restAppDataSourceJdbcTemplate")
-    JdbcTemplate jdbcTemplate;
+    DataSource dataSource;
 
-    /*protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
-    }*/
+    //only user with role:SPITTER can access to specific url, all other url have no constraints
+    //register form requires HTTPS
+    protected void configure(HttpSecurity http) throws Exception{
+        http.authorizeRequests()
+                //.antMatchers("/spitter").hasRole("SPITTER")
+                .antMatchers(org.springframework.http.HttpMethod.POST, "/spittle").hasRole("SPITTER")
+                .anyRequest().permitAll();
+        //.and().requiresChannel().antMatchers("/spitter/register").requiresSecure();
+    }
 
     protected void configure (AuthenticationManagerBuilder auth) throws Exception{
         /*
         auth.inMemoryAuthentication()
                 .withUser("user").password("password").roles("USER").and()
                 .withUser("admin").password("password").roles("USER", "ADMIN");*/
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("select username, password, enabled" +
+                        "from Spitter where username=?")
+                .authoritiesByUsernameQuery("select username, role_user" +
+                        "from Spitter where username=?")
+                .passwordEncoder(new StandardPasswordEncoder("53cr3t"));
     }
 }

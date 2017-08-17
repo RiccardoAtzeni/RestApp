@@ -67,7 +67,6 @@ public class Spittle
 	{
 		return EqualsBuilder.reflectionEquals(this, that, excludeFields);
 	}
-	
-	
+
 	
 }
