@@ -20,7 +20,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +28,7 @@ import com.arm.springrest.core.FileValidator;
 import com.arm.springrest.core.MultiFileValidator;
 import com.arm.springrest.data.FileBucket;
 import com.arm.springrest.data.MultiFileBucket;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+
 
 @Controller
 public class FileUploadController 

@@ -19,7 +19,7 @@
 	
 	<s:url value="/spittle" var="spittlesUrl">
 		<!--<s:param name="max" value="60" />-->
-		<s:param name="count" value="20" />
+		<s:param name="maxperiod" value="20" />
 	</s:url>	
 	<h2>Find out last recent 
 	<a href="${spittlesUrl}">spittles</a>

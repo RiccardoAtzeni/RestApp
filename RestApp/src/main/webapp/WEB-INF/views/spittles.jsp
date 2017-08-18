@@ -20,12 +20,15 @@
 	
 	<c:forEach items="${spittleList}" var="spittle">
 		<li id="spittle_<c:out value="spittle.id"/>" >
-			<div class="spittleMessage" style="color:orange">
+			<span class="spittleMessage" style="color:orange">
 				<c:out value="${spittle.message}" />
-			</div>
+			</span>
 			<div>
 				<span class="spittleTime">
-					<b>Sent:</b> <c:out value="${spittle.time}" />
+					<b>Sent on: </b> <c:out value="${spittle.insert_date.getTime()}" />
+				</span><br/>
+				<span class="spittleOwner">
+					<b>By: </b> <c:out value="${spittle.getSpitter().getUsername()}" />
 				</span>
 				<span class="spittleLocation">
 					(<b>Latitude :</b> <c:out value="${spittle.latitude}" />,

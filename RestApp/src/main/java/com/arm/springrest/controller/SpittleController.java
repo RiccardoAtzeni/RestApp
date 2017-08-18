@@ -1,6 +1,8 @@
 package com.arm.springrest.controller;
 
 import java.util.List;
+
+import com.arm.springrest.service.SpittleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class SpittleController 
 {
 	private SpittleRepository spittleRepository;
+
+	@Autowired
+	private SpittleService spittleService;
 	
 	@Autowired
 	public SpittleController(SpittleRepository spittleRepository) 
@@ -33,12 +38,14 @@ public class SpittleController
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String spittles(Model model,
-			@RequestParam(value="max", defaultValue="100000000") long max,
-			@RequestParam(value="count", defaultValue="20") int count)
+			//@RequestParam(value="max", defaultValue="100000000") long max,
+			@RequestParam(value="maxperiod", defaultValue="20") int maxperiod)
 	{
 		//model is like a map: if the key is not stated, it will be the type of the 
 	  //value: in this case spittleList
-	  model.addAttribute("spittleList", spittleRepository.findSpittle(max, count));
+	  //model.addAttribute("spittleList", spittleRepository.findSpittle(max, count));
+		model.addAttribute("spittleList",spittleService.findLatest(maxperiod));
+
 	  return "spittles";
 	}
 	

@@ -17,7 +17,7 @@
 
 <body>
   <div class="form-container">
-	<h1>Hello&nbsp;<c:out value="${spitter.firstName}" />&nbsp;<c:out value="${spitter.lastName}" />!</h1>
+	<h1>Hello&nbsp;<c:out value="${spitter.firstname}" />&nbsp;<c:out value="${spitter.lastname}" />!</h1>
 	
 	<h6>Logged as <c:out value="${spitter.username}" /><br/></h6>
 	</div>
